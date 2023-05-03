@@ -17,7 +17,7 @@
 @section('content')
 <body>
     <div class="section-header">
-        <h1> Selamat Datang di Dashboard Admin</h1>
+        <h1> Selamat Datang di Dashboard Super Admin</h1>
     </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">

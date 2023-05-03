@@ -16,7 +16,7 @@
 @section('content')
 <body>
     <div class="section">
-
+        halaman member
     </div>
     <div class="section-body">
 
