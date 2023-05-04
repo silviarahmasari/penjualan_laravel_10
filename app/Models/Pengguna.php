@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengguna extends Model
 {
-    protected $table = 'pengguna';
+    protected $table = 'user';
 
     protected $fillable = [
         'id_pengguna',
@@ -23,5 +23,13 @@ class Pengguna extends Model
     public function barang()
     {
         return $this->hasMany('App\Models\Barang', 'id_pengguna');
+    }
+    public function pembelian()
+    {
+        return $this->hasMany('App\Models\Pembelian', 'id_pengguna');
+    }
+    public function Penjualan()
+    {
+        return $this->hasMany('App\Models\Penjualan', 'id_pengguna');
     }
 }
