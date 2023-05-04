@@ -20,4 +20,8 @@ class Pengguna extends Model
         'alamat'
     ];
 
+    public function barang()
+    {
+        return $this->hasMany('App\Models\Barang', 'id_pengguna');
+    }
 }
