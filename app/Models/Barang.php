@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nama_barang', 'keterangan', 'satuan', 'stok'
+    ];
+    public function author()
+    {
+        return $this->belongsTo('App\Models\Pengguna', 'id');
+    }
+
+    
 }
