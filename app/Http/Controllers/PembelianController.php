@@ -4,29 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Pembelian;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
 {
     public function index()
     {
-        $pembelian = Pembelian::with('pembelian')->get();
+        $pembelian = Pembelian::all();
         return view('admin.pembelian.index', compact('pembelian'));
     }
 
     public function create()
     {
         $barang = Barang::all();
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // generate a pin based on 2 * 7 digits + a random character
-        $pin = mt_rand(1000000, 9999999)
-            . mt_rand(1000000, 9999999)
-            . $characters[rand(0, strlen($characters) - 1)];
-
-        // shuffle the result
-        $va = str_shuffle($pin);
-        return view('admin.pembelian.create', compact('barang','va'));
+        return view('admin.pembelian.create', compact('barang'));
     }
 
     public function store(Request $request)
@@ -41,10 +33,10 @@ class PembelianController extends Controller
         $pembelian = new Pembelian;
         $pembelian->harga_beli = $request->harga_beli;
         $pembelian->jumlah_pembelian = $request->jumlah_pembelian;
-        $pembelian->id_pengguna = $barang->id_pengguna;
+        $pembelian->id_pengguna = $request->id_pengguna;
         $pembelian->id_barang = $request->id_barang;
         $pembelian->save();
-        $barang->stok=$barang->stok -  $request->jumlah_pembelian;
+        $barang->stok=$barang->stok +  $request->jumlah_pembelian;
         $barang->save();
         return redirect()->route('pembelian.index');
     }
@@ -67,13 +59,13 @@ class PembelianController extends Controller
     {
         $request->validate([
             'jumlah_pembelian' => 'required',
-            'harga_beli'=>'required',
             'id_barang'=>'required'
         ]);
 
         $pembelian = Pembelian::findOrFail($id);
+        $penjualan = Penjualan::findOrFail($request->id_barang);
         $pembelian = new Pembelian;
-        $pembelian->harga_beli = $request->harga_beli;
+        $pembelian->harga_beli = $penjualan->harga_jual;
         $pembelian->jumlah_pembelian = $request->jumlah_pembelian;
         $pembelian->id_barang = $request->id_barang;
         $pembelian->save();

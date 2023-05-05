@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Pengguna;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
@@ -10,14 +11,24 @@ class PenjualanController extends Controller
 {
     public function index()
     {
-        $penjualan = Penjualan::with('penjualan')->get();
+        $penjualan = Penjualan::all();
         return view('admin.penjualan.index', compact('penjualan'));
     }
 
     public function create()
     {
         $barang = Barang::all();
-        return view('admin.penjualan.create', compact('barang'));
+        $pengguna = Pengguna::all();
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // generate a pin based on 2 * 7 digits + a random character
+        $pin = mt_rand(1000000, 9999999)
+            . mt_rand(1000000, 9999999)
+            . $characters[rand(0, strlen($characters) - 1)];
+
+        // shuffle the result
+        $va = str_shuffle($pin);
+        return view('admin.penjualan.create', compact('barang','pengguna','va'));
     }
 
     public function store(Request $request)
@@ -25,17 +36,18 @@ class PenjualanController extends Controller
         $request->validate([
             'jumlah_penjualan' => 'required',
             'harga_jual'=>'required',
-            'id_barang'=>'required'
+            'id_barang'=>'required',
+            'id_pengguna'=>'required'
         ]);
 
         $barang = Barang::findOrFail($request->id_barang);
         $penjualan = new Penjualan;
         $penjualan->harga_jual = $request->harga_jual;
         $penjualan->jumlah_penjualan = $request->jumlah_penjualan;
-        $penjualan->id_pengguna = $barang->id_pengguna;
+        $penjualan->id_pengguna = $request->id_pengguna;
         $penjualan->id_barang = $request->id_barang;
         $penjualan->save();
-        $barang->stok=$barang->stok +  $request->jumlah_penjualan;
+        $barang->stok=$barang->stok -  $request->jumlah_penjualan;
         $barang->save();
         return redirect()->route('penjualan.index');
     }
@@ -59,15 +71,19 @@ class PenjualanController extends Controller
         $request->validate([
             'jumlah_penjualan' => 'required',
             'harga_jual'=>'required',
-            'id_barang'=>'required'
+            'id_barang'=>'required',
+            'id_pengguna'=>'required'
         ]);
 
         $penjualan = Penjualan::findOrFail($id);
+        $barang=Barang::findOrFail($request->id_barang);
         $penjualan = new Penjualan;
         $penjualan->harga_jual = $request->harga_jual;
         $penjualan->jumlah_penjualan = $request->jumlah_penjualan;
         $penjualan->id_barang = $request->id_barang;
         $penjualan->save();
+        $barang->stok=$barang->stok -  $request->jumlah_penjualan;
+        $barang->save();
         return redirect()->route('penjualan.index');
 
     }

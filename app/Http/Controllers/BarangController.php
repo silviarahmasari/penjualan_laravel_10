@@ -11,7 +11,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::with('barang')->get();
+        $barang = Barang::all();
         return view('admin.barang.index', compact('barang'));
     }
 
@@ -38,7 +38,7 @@ class BarangController extends Controller
         $barang->stok = $request->stok;
         $barang->id_pengguna = $request->id_pengguna;
         $barang->save();
-        return redirect()->route('barang    .index');
+        return redirect()->route('barang.index');
     }
 
     public function show($id)
