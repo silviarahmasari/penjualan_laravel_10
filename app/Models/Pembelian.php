@@ -18,6 +18,6 @@ class Pembelian extends Model
     }
     public function barang()
     {
-        return $this->belongsTo('App\Models\Barang', 'id_barang');
+        return $this->belongsTo('App\Models\Barang', 'id_barang', 'id_barang');
     }
 }
