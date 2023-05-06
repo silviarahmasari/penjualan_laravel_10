@@ -18,7 +18,7 @@ class PenjualanController extends Controller
     public function create()
     {
         $barang = Barang::all();
-        $pengguna = Pengguna::all();
+        $user = User::all();
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         // generate a pin based on 2 * 7 digits + a random character
@@ -28,7 +28,7 @@ class PenjualanController extends Controller
 
         // shuffle the result
         $va = str_shuffle($pin);
-        return view('admin.penjualan.create', compact('barang','pengguna','va'));
+        return view('admin.penjualan.create', compact('barang','user','va'));
     }
 
     public function store(Request $request)
@@ -37,14 +37,14 @@ class PenjualanController extends Controller
             'jumlah_penjualan' => 'required',
             'harga_jual'=>'required',
             'id_barang'=>'required',
-            'id_pengguna'=>'required'
+            'id_user'=>'required'
         ]);
 
         $barang = Barang::findOrFail($request->id_barang);
         $penjualan = new Penjualan;
         $penjualan->harga_jual = $request->harga_jual;
         $penjualan->jumlah_penjualan = $request->jumlah_penjualan;
-        $penjualan->id_pengguna = $request->id_pengguna;
+        $penjualan->id_user = Auth::user()->id_user;
         $penjualan->id_barang = $request->id_barang;
         $penjualan->save();
         $barang->stok=$barang->stok -  $request->jumlah_penjualan;
@@ -72,15 +72,16 @@ class PenjualanController extends Controller
             'jumlah_penjualan' => 'required',
             'harga_jual'=>'required',
             'id_barang'=>'required',
-            'id_pengguna'=>'required'
+            // 'id_user'=>'required'
         ]);
 
         $penjualan = Penjualan::findOrFail($id);
-        $barang=Barang::findOrFail($request->id_barang);
+        $barang = Barang::findOrFail($request->id_barang);
         $penjualan = new Penjualan;
         $penjualan->harga_jual = $request->harga_jual;
         $penjualan->jumlah_penjualan = $request->jumlah_penjualan;
         $penjualan->id_barang = $request->id_barang;
+        // $penjualan->id_user = Auth::user()->id_user;
         $penjualan->save();
         $barang->stok=$barang->stok -  $request->jumlah_penjualan;
         $barang->save();

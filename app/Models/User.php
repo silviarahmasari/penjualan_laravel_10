@@ -10,7 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    // use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_user',
         'id_akses',
         'nama_pengguna',
         'password',
@@ -48,14 +51,14 @@ class User extends Authenticatable
 
     public function barang()
     {
-        return $this->hasMany('App\Models\Barang', 'id_pengguna');
+        return $this->hasMany('App\Models\Barang', 'id_user');
     }
     public function pembelian()
     {
-        return $this->hasMany('App\Models\Pembelian', 'id_pengguna');
+        return $this->hasMany('App\Models\Pembelian', 'id_user');
     }
-    public function Penjualan()
+    public function penjualan()
     {
-        return $this->hasMany('App\Models\Penjualan', 'id_pengguna');
+        return $this->hasMany('App\Models\Penjualan', 'id_user');
     }
 }

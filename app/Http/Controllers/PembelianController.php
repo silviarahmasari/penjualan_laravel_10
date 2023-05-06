@@ -33,7 +33,7 @@ class PembelianController extends Controller
         $pembelian = new Pembelian;
         $pembelian->harga_beli = $request->harga_beli;
         $pembelian->jumlah_pembelian = $request->jumlah_pembelian;
-        $pembelian->id_pengguna = $request->id_pengguna;
+        $pembelian->id_user = Auth::user()->id_user;
         $pembelian->id_barang = $request->id_barang;
         $pembelian->save();
         $barang->stok=$barang->stok +  $request->jumlah_pembelian;

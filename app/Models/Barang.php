@@ -10,11 +10,11 @@ class Barang extends Model
     use HasFactory;
     protected $table = 'barang';
     protected $fillable = [
-        'nama_barang', 'keterangan', 'satuan', 'stok','id_pengguna'
+        'nama_barang', 'keterangan', 'satuan', 'stok', 'id_user'
     ];
     public function author()
     {
-        return $this->belongsTo('App\Models\Pengguna', 'id_pengguna');
+        return $this->belongsTo('App\Models\Pengguna', 'id_user');
     }
     public function pembelian()
     {

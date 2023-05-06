@@ -10,14 +10,14 @@ class Penjualan extends Model
     use HasFactory;
     protected $table = 'penjualan';
     protected $fillable = [
-        'id_pengguna', 'id_barang', 'jumlah_penjualan', 'harga_jual'
+        'id_user', 'id_barang', 'jumlah_penjualan', 'harga_jual'
     ];
 
     public function author()
     {
-        return $this->belongsTo('App\Models\Pengguna', 'id_pengguna');
+        return $this->belongsTo('App\Models\Pengguna', 'id_user');
     }
-    public function Barang()
+    public function barang()
     {
         return $this->belongsTo('App\Models\Barang', 'id_barang');
     }
