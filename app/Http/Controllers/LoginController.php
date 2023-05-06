@@ -25,6 +25,7 @@ class LoginController extends Controller
 
     public function postLogin(Request $request){
         $data = $request->only('nama_pengguna', 'password');
+        // dd(Auth::attempt($data));
         if(Auth::attempt($data)){
             if(Auth::user()->id_akses == 2 ){
                 return redirect('/admin');

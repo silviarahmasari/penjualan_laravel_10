@@ -15,13 +15,13 @@ class AdminController extends Controller
     {
         $admin = User::where('id_akses', '=', '2')->get();
         $adminCount = count($admin);
-        $labarugi= DB::table('pembelian')
-                    ->select('SUM(penjualan.jumlah_penjualan*penjualan.harga_jual) - SUM(pembelian.jumlah_pembelian*pembelian.harga_beli) as labarugi')
-                    ->join('penjualan', 'pembelian.id_barang', '=', 'penjualan.id_barang')
-                    ->groupBy('pembelian.id_barang,penjualan.id_barang')
-                    ->get();
+        // $labarugi= DB::table('pembelian')
+        //             ->select('SUM(penjualan.jumlah_penjualan*penjualan.harga_jual) - SUM(pembelian.jumlah_pembelian*pembelian.harga_beli) as labarugi')
+        //             ->join('penjualan', 'pembelian.id_barang', '=', 'penjualan.id_barang')
+        //             ->groupBy('pembelian.id_barang,penjualan.id_barang')
+        //             ->get();
 
-        return view('admin.index', compact('admin', 'adminCount','labarugi'));
+        return view('admin.index', compact('admin', 'adminCount'));
     }
 
     /**

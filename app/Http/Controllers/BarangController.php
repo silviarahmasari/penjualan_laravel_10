@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
@@ -17,8 +18,8 @@ class BarangController extends Controller
 
     public function create()
     {
-        $pengguna = Pengguna::all();
-        return view('admin.barang.create', compact('pengguna'));
+        $user = User::all();
+        return view('admin.barang.create', compact('user'));
     }
 
     public function store(Request $request)
@@ -28,7 +29,7 @@ class BarangController extends Controller
             'keterangan' => 'required',
             'satuan' => 'required',
             'stok' => 'required',
-            'id_pengguna' => 'required',
+            'id_user' => 'required',
         ]);
 
         $barang = new Barang;
@@ -36,7 +37,7 @@ class BarangController extends Controller
         $barang->keterangan = $request->keterangan;
         $barang->satuan = $request->satuan;
         $barang->stok = $request->stok;
-        $barang->id_pengguna = $request->id_pengguna;
+        $barang->id_user = Auth::user()->id_user;
         $barang->save();
         return redirect()->route('barang.index');
     }
@@ -50,8 +51,8 @@ class BarangController extends Controller
     public function edit($id)
     {
         $barang = Barang::findOrFail($id);
-        $pengguna = Pengguna::all();
-        return view('admin.barang.edit', compact('barang', 'pengguna'));
+        $user = User::all();
+        return view('admin.barang.edit', compact('barang', 'user'));
 
     }
 
@@ -62,7 +63,7 @@ class BarangController extends Controller
             'keterangan' => 'required',
             'satuan' => 'required',
             'stok' => 'required',
-            'id_pengguna' => 'required',
+            'id_user' => 'required',
         ]);
 
         $barang = Barang::findOrFail($id);
@@ -70,7 +71,7 @@ class BarangController extends Controller
         $barang->keterangan = $request->keterangan;
         $barang->satuan = $request->satuan;
         $barang->stok = $request->stok;
-        $barang->id_pengguna = $request->id_pengguna;
+        $barang->id_user = Auth::user()->id_user;
         $barang->save();
         return redirect()->route('barang.index');
 
