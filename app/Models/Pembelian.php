@@ -14,10 +14,10 @@ class Pembelian extends Model
     ];
     public function author()
     {
-        return $this->belongsTo('App\Models\Pengguna', 'id_pengguna');
+        return $this->belongsTo('App\Models\Pengguna', 'id_pengguna', 'id_pengguna');
     }
     public function Barang()
     {
-        return $this->belongsTo('App\Models\Barang', 'id_barang');
+        return $this->belongsTo('App\Models\Barang', 'id_barang', 'id_barang');
     }
 }

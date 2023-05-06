@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RiwayatPesananController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
@@ -33,5 +34,6 @@ Route::middleware(['auth', 'CheckRole:2'])->group(function() {
 
 //-------------------MEMBER-----------------//
 Route::middleware(['auth', 'CheckRole:6'])->group(function() {
-    Route::get('/member', [MemberController::class, 'index']);
+    Route::get('/member', [MemberController::class, 'index'])->name('member');
+    Route::get('/member/riwayat', [RiwayatPesananController::class, 'index'])->name('member.riwayat');
 });

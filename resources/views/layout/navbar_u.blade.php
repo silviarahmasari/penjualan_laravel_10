@@ -26,8 +26,8 @@
     <nav class="navbar navbar-secondary navbar-expand-lg">
         <div class="container">
           <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a href="Member" data-toggle="dropdown" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+            <li class="nav-item {{ Route::currentRouteName() === 'member' ? 'active' : '' }}">
+              <a href="{{ route('member') }}" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
             </li>
             <li class="nav-item dropdown">
               <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fa fa-archive"></i><span>Menu</span></a>
@@ -55,8 +55,10 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item ">
-              <a href="" data-toggle="dropdown" class="nav-link"><i class="fas fa-heart"></i><span>Riwayat Pesanan</span></a>
+            <li class="nav-item {{ Route::currentRouteName() === 'member.riwayat' ? 'active' : '' }}">
+              <a href="{{ route('member.riwayat') }}" class="nav-link">
+                <i class="fas fa-heart"></i><span>Riwayat Pesanan</span>
+              </a>
             </li>
           </ul>
           <form class="form-inline ml-auto">
