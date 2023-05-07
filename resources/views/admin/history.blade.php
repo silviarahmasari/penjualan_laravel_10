@@ -38,8 +38,7 @@
                     <th scope="col">Nama Pembeli</th>
                     <th scope="col">Jumlah Penjualan</th>
                     <th scope="col">Nama Barang</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Total</th>
+                    <th scope="col">Total Harga</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +49,6 @@
                         <td>{{ $data->jumlah_penjualan }}</td>
                         <td>{{ $data->barang->nama_barang }}</td>
                         <td>Rp. {{ number_format($data->harga_jual ?? 0, 0, ',', '.') }}</td>
-                        <td>Rp. {{ number_format($data->harga_jual * $data->jumlah_penjualan ?? 0, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>

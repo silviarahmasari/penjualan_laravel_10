@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -16,13 +17,18 @@ class AdminController extends Controller
     {
         $admin = User::where('id_akses', '=', '2')->get();
         $adminCount = count($admin);
+        $data_jual_beli = DB::table('penjualan')
+            ->join('barang', 'penjualan.id_barang', '=', 'barang.id_barang')
+            ->select('barang.*', 'penjualan.jumlah_penjualan', 'penjualan.harga_jual as total_harga')
+            ->get();
+        // dd($data_jual_beli);
         // $labarugi= DB::table('pembelian')
         //             ->select('SUM(penjualan.jumlah_penjualan*penjualan.harga_jual) - SUM(pembelian.jumlah_pembelian*pembelian.harga_beli) as labarugi')
         //             ->join('penjualan', 'pembelian.id_barang', '=', 'penjualan.id_barang')
         //             ->groupBy('pembelian.id_barang,penjualan.id_barang')
         //             ->get();
 
-        return view('admin.index', compact('admin', 'adminCount'));
+        return view('admin.index', compact('admin', 'adminCount', 'data_jual_beli'));
     }
 
     /**
