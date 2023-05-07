@@ -17,8 +17,12 @@ class Penjualan extends Model
     {
         return $this->belongsTo('App\Models\Pengguna', 'id_user');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
     public function barang()
     {
-        return $this->belongsTo('App\Models\Barang', 'id_barang', 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang');
     }
 }
