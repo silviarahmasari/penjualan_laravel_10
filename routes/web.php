@@ -28,12 +28,13 @@ Route::post('/post_register', [LoginController::class, 'postRegister'])->name('p
 Route::get('/logout', [LoginController::class, 'Logout'])->name('logout');
 
 //-------------------ADMIN-----------------//
-Route::middleware(['auth', 'CheckRole:2'])->group(function() {
+Route::middleware(['auth', 'CheckRole:2'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/history', [AdminController::class, 'history'])->name('history');
 });
 
 //-------------------MEMBER-----------------//
-Route::middleware(['auth', 'CheckRole:6'])->group(function() {
+Route::middleware(['auth', 'CheckRole:6'])->group(function () {
     Route::get('/member', [MemberController::class, 'index'])->name('member');
     Route::get('/member/riwayat', [RiwayatPesananController::class, 'index'])->name('member.riwayat');
 });

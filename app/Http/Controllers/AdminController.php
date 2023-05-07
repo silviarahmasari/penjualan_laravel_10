@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -70,5 +71,10 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function history()
+    {
+        $penjualan = Penjualan::all();
+        return view('admin.history', compact('penjualan'));
     }
 }
