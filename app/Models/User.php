@@ -61,4 +61,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Barang::class, 'id_user');
     }
+    public function akses()
+    {
+        return $this->belongsTo(HakAkses::class, 'id_akses');
+    }
 }

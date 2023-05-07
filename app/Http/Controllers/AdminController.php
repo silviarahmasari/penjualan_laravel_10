@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Barang;
+use App\Models\Penjualan;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -16,13 +17,20 @@ class AdminController extends Controller
     {
         $admin = User::where('id_akses', '=', '2')->get();
         $adminCount = count($admin);
+        $member = User::where('id_akses', '=', '6')->get();
+        $memberCount = count($member);
+        $barang = Barang::all();
+        $barangCount = count($barang);
+        $penjualan = Penjualan::all();
+        $penjualanCount = count($penjualan);
+
         // $labarugi= DB::table('pembelian')
         //             ->select('SUM(penjualan.jumlah_penjualan*penjualan.harga_jual) - SUM(pembelian.jumlah_pembelian*pembelian.harga_beli) as labarugi')
         //             ->join('penjualan', 'pembelian.id_barang', '=', 'penjualan.id_barang')
         //             ->groupBy('pembelian.id_barang,penjualan.id_barang')
         //             ->get();
 
-        return view('admin.index', compact('admin', 'adminCount'));
+        return view('admin.index', compact('admin', 'adminCount', 'memberCount', 'barangCount', 'penjualanCount'));
     }
 
     /**

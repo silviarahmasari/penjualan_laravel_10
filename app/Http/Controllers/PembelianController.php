@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -12,33 +14,25 @@ class PembelianController extends Controller
     public function index()
     {
         $pembelian = Pembelian::all();
-        return view('admin.pembelian.index', compact('pembelian'));
+        return view('pembelian.index', compact('pembelian'));
     }
 
     public function create()
     {
         $barang = Barang::all();
-        return view('admin.pembelian.create', compact('barang'));
+        return view('pembelian.create', compact('barang'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'jumlah_pembelian' => 'required',
-            'harga_beli'=>'required',
-            'id_barang'=>'required'
+        Pembelian::create([
+            'id_barang' => $request->id_barang,
+            'id_user' => Auth::user()->id_user,
+            'jumlah_pembelian' => $request->jumlah_pembelian,
+            'harga_beli' => $request->harga_beli,
         ]);
 
-        $barang = Barang::findOrFail($request->id_barang);
-        $pembelian = new Pembelian;
-        $pembelian->harga_beli = $request->harga_beli;
-        $pembelian->jumlah_pembelian = $request->jumlah_pembelian;
-        $pembelian->id_user = Auth::user()->id_user;
-        $pembelian->id_barang = $request->id_barang;
-        $pembelian->save();
-        $barang->stok=$barang->stok +  $request->jumlah_pembelian;
-        $barang->save();
-        return redirect()->route('pembelian.index');
+        return redirect('/pembelian')->with('success', 'Data baru berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -47,37 +41,30 @@ class PembelianController extends Controller
         return view('admin.pembelian.show', compact('pembelian'));
     }
 
-    public function edit($id)
+    public function edit($id_pembelian)
     {
-        $pembelian = Pembelian::findOrFail($id);
         $barang = Barang::all();
-        return view('admin.pembelian.edit', compact('barang', 'pembelian'));
-
+        $pembelian = Pembelian::findOrFail($id_pembelian);
+        return view('pembelian.update', compact('barang', 'pembelian'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $request->validate([
-            'jumlah_pembelian' => 'required',
-            'id_barang'=>'required'
+        DB::table('pembelian')->where('id_pembelian', $request->id_pembelian)->update([
+            'id_pembelian' => $request->id_pembelian,
+            'id_barang' => $request->id_barang,
+            'id_user' => $request->id_user,
+            'jumlah_pembelian' => $request->jumlah_pembelian,
+            'harga_beli' => $request->harga_beli,
         ]);
-
-        $pembelian = Pembelian::findOrFail($id);
-        $penjualan = Penjualan::findOrFail($request->id_barang);
-        $pembelian = new Pembelian;
-        $pembelian->harga_beli = $penjualan->harga_jual;
-        $pembelian->jumlah_pembelian = $request->jumlah_pembelian;
-        $pembelian->id_barang = $request->id_barang;
-        $pembelian->save();
-        return redirect()->route('pembelian.index');
-
+        return redirect('/pembelian')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy($id_pembelian)
     {
-        $pembelian = Pembelian::findOrFail($id);
+        $pembelian = Pembelian::find($id_pembelian);
         $pembelian->delete();
-        return redirect()->route('pembelian.index');
+        return redirect('/pembelian')->with('success', 'Data berhasil dihapus!');
     }
 
 }
