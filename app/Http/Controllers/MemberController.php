@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Barang;
 
 class MemberController extends Controller
 {
@@ -11,7 +12,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('member.index');
+        $barang = Barang::all();
+        return view('member.index', compact('barang'));
     }
 
     /**

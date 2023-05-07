@@ -37,4 +37,7 @@ Route::middleware(['auth', 'CheckRole:2'])->group(function () {
 Route::middleware(['auth', 'CheckRole:6'])->group(function () {
     Route::get('/member', [MemberController::class, 'index'])->name('member');
     Route::get('/member/riwayat', [RiwayatPesananController::class, 'index'])->name('member.riwayat');
+    Route::get('/member/pesan/{id_barang}', [PenjualanController::class, 'create']);
+    Route::post('/member/checkout', [PenjualanController::class, 'store'])->name('checkout');
+    Route::get('/member/bayar', [PenjualanController::class, 'getVA'])->name('bayar');
 });
