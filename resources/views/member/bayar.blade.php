@@ -15,19 +15,16 @@
 
 @section('content')
 <body>
-    <div class="section-body">
+    <div class="section-body text-center">
         <div class="row">
-            <div class="card col-md-6" style="margin: 80px">
-                <div class="card-header text-center">
-                    <h4>Nomor Virtual Account</h4>
-                    <h6 style="color: orange">{{ $va }}</h6>
-                </div>
+            <div class="card col-md-10" style="margin: 40px">
+                <div class="card-header text-center"></div>
+                <h4>Nomor Virtual Account</h4>
+                <h6 style="color: orange">{{ $va }}</h6>
                 <div class="card-body text-center">
-                    <button id="copyBtn" data-text="Text to copy">Salin Kode</button>
-                    <div class="text-black-50">
-                        Nama akun : {{ Auth::user()->nama_depan}} {{ Auth::user()->nama_belakang }}
-                    </div>
+                    <button id="copyBtn" data-text="Text to copy" class="btn btn-secondary btn-sm col-2 text-center">Salin Kode</button>
                 </div>
+                <div class="card-footer text-center"></div>
             </div>
         </div>
     </div>

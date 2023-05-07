@@ -29,32 +29,6 @@
             <li class="nav-item {{ Route::currentRouteName() === 'member' ? 'active' : '' }}">
               <a href="{{ route('member') }}" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
             </li>
-            <li class="nav-item dropdown">
-              <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fa fa-archive"></i><span>Menu</span></a>
-              <ul class="dropdown-menu">
-                <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Sub Menu 1</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item"><a href="#" class="nav-link">Content 1</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 2</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 3</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Sub Menu 2</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item"><a href="#" class="nav-link">Content 1</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 2</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 3</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Sub Menu 3</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item"><a href="#" class="nav-link">Content 1</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 2</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Content 3</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
             <li class="nav-item {{ Route::currentRouteName() === 'member.riwayat' ? 'active' : '' }}">
               <a href="{{ route('member.riwayat') }}" class="nav-link">
                 <i class="fas fa-heart"></i><span>Riwayat Pesanan</span>

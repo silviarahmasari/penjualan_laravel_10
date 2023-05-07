@@ -1,12 +1,12 @@
 @extends('layout.mainlayout')
-@section('page_title', '')
+@section('page_title', 'History')
 
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Hisotry</title>
+    <title>History Penjualan</title>
     <style type="text/css">
         .left {
             text-align: left;
@@ -28,7 +28,7 @@
 
 @section('content')
     <div class="section-header">
-        <h1>History</h1>
+        <h1>History Penjualan</h1>
     </div>
     <div class="section">
         <table class="table">
