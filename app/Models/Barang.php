@@ -9,6 +9,8 @@ class Barang extends Model
 {
     use HasFactory;
     protected $table = 'barang';
+    protected $primaryKey = 'id_barang';
+
     protected $fillable = [
         'nama_barang', 'keterangan', 'satuan', 'stok', 'id_user'
     ];
@@ -23,6 +25,6 @@ class Barang extends Model
 
     public function penjualan()
     {
-        return $this->hasMany('App\Models\Penjualan', 'id_barang');
+        return $this->hasMany(Penjualan::class, 'id_barang');
     }
 }
