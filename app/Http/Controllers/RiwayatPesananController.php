@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 class RiwayatPesananController extends Controller
 {
@@ -17,7 +18,7 @@ class RiwayatPesananController extends Controller
         // dd(Route::currentRouteName());
         $data = [
             'allPenjualan' => Penjualan::with(['Barang'])
-            // ->where('id_user', auth()->id())
+            ->where('id_user', Auth::user()->id_user)
             ->orderBy('id_user')
             ->get()
         ];
