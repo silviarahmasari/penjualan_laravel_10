@@ -15,14 +15,11 @@ class RiwayatPesananController extends Controller
      */
     public function index()
     {
-        // dd(Route::currentRouteName());
         $data = [
             'allPenjualan' => Penjualan::with(['Barang'])
             ->where('id_user', Auth::user()->id_user)
             ->get()
         ];
-
-        // dd($data);
 
         return view('member.riwayat', $data);
     }
