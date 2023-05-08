@@ -17,7 +17,7 @@ class RiwayatPesananController extends Controller
         // dd(Route::currentRouteName());
         $data = [
             'allPenjualan' => Penjualan::with(['Barang'])
-            // ->where('id_user', auth()->id())
+            ->where('id_user', auth()->id())
             ->orderBy('id_user')
             ->get()
         ];
