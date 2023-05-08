@@ -19,7 +19,6 @@ class RiwayatPesananController extends Controller
         $data = [
             'allPenjualan' => Penjualan::with(['Barang'])
             ->where('id_user', Auth::user()->id_user)
-            ->orderBy('id_user')
             ->get()
         ];
 
