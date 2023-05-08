@@ -15,8 +15,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = User::where('id_akses', '=', '2')->get();
-        $adminCount = count($admin);
+        $admin2 = User::where('id_akses', '=', '2')->get();
+        $admin3 = User::where('id_akses', '=', '3')->get();
+        $admin4 = User::where('id_akses', '=', '4')->get();
+        $admin5 = User::where('id_akses', '=', '5')->get();
+        $adminCount = count($admin2) + count($admin3) + count($admin4) + count($admin5);
         $member = User::where('id_akses', '=', '6')->get();
         $memberCount = count($member);
         $barang = Barang::all();
@@ -30,7 +33,7 @@ class AdminController extends Controller
         //             ->groupBy('pembelian.id_barang,penjualan.id_barang')
         //             ->get();
 
-        return view('admin.index', compact('admin', 'adminCount', 'memberCount', 'barangCount', 'penjualanCount'));
+        return view('admin.index', compact('adminCount', 'memberCount', 'barangCount', 'penjualanCount'));
     }
 
     /**
