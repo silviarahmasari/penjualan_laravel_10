@@ -45,7 +45,7 @@
                     <h4>Total Member</h4>
                   </div>
                   <div class="card-body">
-                    42
+                    {{ $memberCount }}
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                     <h4>Total Barang</h4>
                   </div>
                   <div class="card-body">
-                    1,201
+                    {{ $barangCount }}
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@
                     <h4>Total Penjualan</h4>
                   </div>
                   <div class="card-body">
-                    47
+                    {{ $penjualanCount }}
                   </div>
                 </div>
               </div>

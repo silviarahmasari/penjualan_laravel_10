@@ -13,33 +13,27 @@ class BarangController extends Controller
     public function index()
     {
         $barang = Barang::all();
-        return view('admin.barang.index', compact('barang'));
+        return view('barang.index', compact('barang'));
     }
 
     public function create()
     {
-        $user = User::all();
-        return view('admin.barang.create', compact('user'));
+        return view('barang.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_barang' => 'required|unique:barang',
-            'keterangan' => 'required',
-            'satuan' => 'required',
-            'stok' => 'required',
-            'id_user' => 'required',
+        Barang::create([
+            'id_user' => Auth::user()->id_user,
+            'nama_barang' => $request->nama_barang,
+            'keterangan' => $request->keterangan,
+            'satuan' => $request->satuan,
+            'stok' => $request->stok,
+            'harga_beli' => $request->harga_beli,
+            'harga_jual' => $request->harga_jual,
         ]);
 
-        $barang = new Barang;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->keterangan = $request->keterangan;
-        $barang->satuan = $request->satuan;
-        $barang->stok = $request->stok;
-        $barang->id_user = Auth::user()->id_user;
-        $barang->save();
-        return redirect()->route('barang.index');
+        return redirect('/barang')->with('success', 'Data baru berhasil ditambahkan!');
     }
 
     public function show($id)
@@ -48,40 +42,35 @@ class BarangController extends Controller
         return view('admin.barang.show', compact('barang'));
     }
 
-    public function edit($id)
+    public function edit($id_barang)
     {
-        $barang = Barang::findOrFail($id);
-        $user = User::all();
-        return view('admin.barang.edit', compact('barang', 'user'));
+        $barang = Barang::findOrFail($id_barang);
+        return view('barang.update', compact('barang'));
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $request->validate([
-            'nama_barang' => 'required|unique:barang',
-            'keterangan' => 'required',
-            'satuan' => 'required',
-            'stok' => 'required',
-            'id_user' => 'required',
+        DB::table('barang')->where('id_barang', $request->id_barang)->update([
+            'id_user' => Auth::user()->id_user,
+            'id_barang' => $request->id_barang,
+            'nama_barang' => $request->nama_barang,
+            'keterangan' => $request->keterangan,
+            'satuan' => $request->satuan,
+            'stok' => $request->stok,
+            'harga_beli' => $request->harga_beli,
+            'harga_jual' => $request->harga_jual,
         ]);
-
-        $barang = Barang::findOrFail($id);
-        $barang->nama_barang = $request->nama_barang;
-        $barang->keterangan = $request->keterangan;
-        $barang->satuan = $request->satuan;
-        $barang->stok = $request->stok;
-        $barang->id_user = Auth::user()->id_user;
-        $barang->save();
-        return redirect()->route('barang.index');
+        return redirect('/barang')->with('success', 'Data berhasil diubah!');
 
     }
 
-    public function destroy($id)
+    public function delete($id_barang)
     {
-        $barang = Barang::findOrFail($id);
-        $barang->delete();
-        return redirect()->route('barang.index');
+        // $barang = Barang::findOrFail($id_barang);
+        $delete = Barang::find($id_barang);
+        $delete->delete();
+        return redirect('/barang')->with('success', 'Data berhasil dihapus!');
     }
 
 }
