@@ -33,7 +33,7 @@
                     $total = 0;
                 @endphp
                 @foreach($allPenjualan as $index => $penjualan)
-                @if($i !== 0 && $lastPengguna !== $penjualan->id_pengguna)
+                @if($i !== 0 && $lastPengguna !== $penjualan->id_user)
                 <tr>
                     <td></td>
                     <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
@@ -44,10 +44,10 @@
                 @endphp
                 @endif
                 <tr>
-                    @if($lastPengguna !== $penjualan->id_pengguna)
+                    @if($lastPengguna !== $penjualan->id_user)
                     <th scope="row">{{ ++$i }}</th>
                     @php
-                        $lastPengguna = $penjualan->id_pengguna;
+                        $lastPengguna = $penjualan->id_user;
                     @endphp
                     @else
                     <th scope="row">{{ '' }}</th>
