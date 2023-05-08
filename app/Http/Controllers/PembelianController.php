@@ -31,6 +31,9 @@ class PembelianController extends Controller
             'jumlah_pembelian' => $request->jumlah_pembelian,
             'harga_beli' => $request->harga_beli,
         ]);
+        $barang = Barang::findOrFail($request->id_barang);
+        $barang->stok = $barang->stok + $request->jumlah_pembelian;
+        $barang->save();
 
         return redirect('/pembelian')->with('success', 'Data baru berhasil ditambahkan!');
     }

@@ -1,10 +1,10 @@
 @extends('layout.mainlayout_u')
-@section('page_title','Beranda')
+@section('page_title','Riwayat')
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Beranda</title>
+    <title>Riwayat</title>
     <style type="text/css">
         .left    { text-align: left;}
         .right   { text-align: right;}
@@ -19,11 +19,10 @@
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama Barang</th>
-                <th scope="col">Jumlah</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Total</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,46 +32,36 @@
                     $total = 0;
                 @endphp
                 @foreach($allPenjualan as $index => $penjualan)
-                @if($i !== 0 && $lastPengguna !== $penjualan->id_pengguna)
-                <tr>
-                    <td></td>
-                    <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
-                    <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
-                </tr>
-                @php
-                    $total = 0;
-                @endphp
-                @endif
-                <tr>
-                    @if($lastPengguna !== $penjualan->id_pengguna)
-                    <th scope="row">{{ ++$i }}</th>
-                    @php
-                        $lastPengguna = $penjualan->id_pengguna;
-                    @endphp
-                    @else
-                    <th scope="row">{{ '' }}</th>
+                    @if($i !== 0 && $lastPengguna !== $penjualan->id_pengguna)
+                        <tr>
+                            <td></td>
+                            <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
+                            <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
+                        </tr>
+                        @php
+                            $total = 0;
+                        @endphp
                     @endif
-                    <td>{{ $penjualan->Barang->nama_barang ?? '' }}</td>
-                    <td>{{ $penjualan->jumlah_penjualan ?? 0 }}</td>
-                    <td>Rp. {{ number_format(($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
-                    <td>Rp. {{ number_format(($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
-                    @php
-                        $total += ($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0);
-                    @endphp
-                </tr>
-                @if($index === (count($allPenjualan) - 1))
-                <tr>
-                    <td></td>
-                    <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
-                    <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
-                </tr>
-                @endif
+                    <tr>
+                        <td>{{ $penjualan->Barang->nama_barang ?? '' }}</td>
+                        <td>{{ $penjualan->jumlah_penjualan ?? 0 }}</td>
+                        <td>Rp. {{ number_format(($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format(($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
+                        @php
+                            $total += ($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0);
+                        @endphp
+                    </tr>
+                    @if($index === (count($allPenjualan) - 1))
+                    <tr>
+                        <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
+                        <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
+                    </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
     </div>
     <div class="section-body">
-
     </div>
 </body>
 @endsection
