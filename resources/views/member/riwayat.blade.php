@@ -19,54 +19,23 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama Barang</th>
-                    <th scope="col">Jumlah</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Total</th>
+                    <th class="text-center" scope="col">Nama Barang</th>
+                    <th class="text-center" scope="col">Jumlah</th>
+                    <th class="text-center" scope="col">Harga</th>
                 </tr>
             </thead>
             <tbody>
-            @php
+                @php
                     $i = 0;
                     $lastPengguna = null;
                     $total = 0;
                 @endphp
                 @foreach($allPenjualan as $index => $penjualan)
-                @if($i !== 0 && $lastPengguna !== $penjualan->id_user)
-                <tr>
-                    <td></td>
-                    <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
-                    <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
-                </tr>
-                @php
-                    $total = 0;
-                @endphp
-                @endif
-                <tr>
-                    @if($lastPengguna !== $penjualan->id_user)
-                    <th scope="row">{{ ++$i }}</th>
-                    @php
-                        $lastPengguna = $penjualan->id_user;
-                    @endphp
-                    @else
-                    <th scope="row">{{ '' }}</th>
-                    @endif
-                    <td>{{ $penjualan->Barang->nama_barang ?? '' }}</td>
-                    <td>{{ $penjualan->jumlah_penjualan ?? 0 }}</td>
-                    <td>Rp. {{ number_format(($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
-                    <td>Rp. {{ number_format(($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
-                    @php
-                        $total += ($penjualan->jumlah_penjualan ?? 0) * ($penjualan->harga_jual ?? 0);
-                    @endphp
-                </tr>
-                @if($index === (count($allPenjualan) - 1))
-                <tr>
-                    <td></td>
-                    <td colspan="3" class="font-weight-bold">Total Pembayaran</td>
-                    <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
-                </tr>
-                @endif
+                    <tr>
+                        <td class="text-center">{{ $penjualan->Barang->nama_barang ?? '' }}</td>
+                        <td class="text-center">{{ $penjualan->jumlah_penjualan ?? 0 }}</td>
+                        <td class="text-center">Rp. {{ number_format(($penjualan->harga_jual ?? 0), 0, ',', '.') }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

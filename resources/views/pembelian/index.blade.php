@@ -37,7 +37,6 @@
                                     <th class="text-center">ID Barang</th>
                                     <th class="text-center">Jumlah Pembelian</th>
                                     <th class="text-center">Harga Beli</th>
-                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             @foreach($pembelian as $data)
@@ -47,16 +46,6 @@
                                     <td class="text-center">{{ $data->id_barang }}</td>
                                     <td class="text-center">{{ $data->jumlah_pembelian }}</td>
                                     <td class="text-center">{{ $data->harga_beli }}</td>
-                                    <td>
-                                        <a href='/pembelian/edit/{{ $data->id_pembelian }}'>
-                                            <button class="btn btn-outline-warning btn-sm"> Edit </button>
-                                        </a>
-                                        <form action="/pembelian/delete/{{ $data->id_pembelian }}" method='POST' class="form-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <button onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" class="fa fa-trash btn btn-outline-danger btn-sm"></button>
-                                        </form>
-                                    </td>
                                 </tr>
                             @endforeach
                         </table>
