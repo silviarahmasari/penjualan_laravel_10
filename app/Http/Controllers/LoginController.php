@@ -55,7 +55,7 @@ class LoginController extends Controller
             'alamat'=>'required'
         ]);
 
-        User::create([
+        $cek = User::create([
             'id_akses'=>$request->id_akses,
             'nama_pengguna'=>$request->nama_pengguna,
             'password'=> Hash::make($request->password),
@@ -65,7 +65,7 @@ class LoginController extends Controller
             'alamat'=>$request->alamat,
         ]);
 
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function Logout()
